@@ -1236,6 +1236,11 @@ testVim(']p_first_indent_is_smaller', function(cm, vim, helpers) {
   helpers.doKeys(']', 'p');
   eq('  ___\n  abc\n    def', cm.getValue());
 }, { value: '  ___' });
+testVim(']p_first_indent_is_smaller_tab_indents', function(cm, vim, helpers) {
+  helpers.getRegisterController().pushText('"', 'yank', '  abc\n    def\n', true);
+  helpers.doKeys(']', 'p');
+  eq('\t___\n\tabc\n\t  def', cm.getValue());
+}, { value: '\t___', indentWithTabs: true, tabSize: 2 });
 testVim(']p_first_indent_is_larger', function(cm, vim, helpers) {
   helpers.getRegisterController().pushText('"', 'yank', '    abc\n  def\n', true);
   helpers.doKeys(']', 'p');
